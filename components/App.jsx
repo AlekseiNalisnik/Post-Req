@@ -6,13 +6,15 @@ import Form from './Form';
 
 import {getList} from '../sources/list';
 
+import Axios from 'axios';
+
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             list: [],
-            user: [],
+            users: [],
             count: 6
         };
 
@@ -21,13 +23,12 @@ class App extends Component {
 
     onInputChange(e) {
         const { target } = e;
-
         this.setState({count: target.value});
     }
 
     // перерендер из-за setState()
     componentDidMount() {
-        // console.log('DIDMOUNT');
+        console.log('DIDMOUNT');
         getList({count: this.state.count})
             .then(({data}) => this.setState({list: data}));
     }
@@ -40,10 +41,10 @@ class App extends Component {
             getList({count: this.state.count})
                 .then(({data}) => this.setState({list: data}));
         }
-        
         // жизненный цикл компонентов
         // console.log('DIDUPDATE');
-        // console.log('did update prevstate: ', prevState); // возвращает state, находящийся ан уровне предыдущего рендера
+        // console.log('did update prevState: ', prevState); // возвращает state, находящийся ан уровне предыдущего рендера
+        // console.log('did update prevProps: ', prevProps);
         // prevProps - возвращает props, находящийся ан уровне предыдущего рендера
         // console.log('did update this.state: ', this.state);
         // если тут вызвать this.setState(), то он будет выполняться бесконечно, 
@@ -54,7 +55,7 @@ class App extends Component {
     render() {
         // const {list} = this.state;
         // const {onInputChange} = this;
-
+        console.log('RENDER!');
         return (
             <div>
                 {/* <input type='number' placeholder="counter here" onChange={onInputChange} />

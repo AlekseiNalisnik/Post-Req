@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser());
 
 app.use(express.static(join(__dirname, 'dist')));
 
@@ -26,13 +26,11 @@ app.get('/list', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-    console.log(req.query);
-    res.send(200);
+    res.send();
 });
 
-app.post('/user', urlencodedParser, (req, res) => {
+app.post('/user', (req, res) => {
     console.log('/user: ', req.body);
-
     res.send(req.body);
 });
 

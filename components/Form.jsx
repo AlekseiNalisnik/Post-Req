@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
 import { createUser, getUsers } from '../sources/Users';
-import Axios from 'axios';
+import { users } from '../data';
 
 class Form extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            users: [],
             name: '',
             surname: '',
             phoneNumber: '',
@@ -23,22 +22,17 @@ class Form extends Component {
     onSubmit(e) {
         e.preventDefault();
         console.log('This state - ', this.state);
-
         createUser(this.state)
             .then(res => {
                 console.log('res - ', res);
-                Axios.get('/user')
-                .then((res) => {
-                    console.log('Response - ', res);
-                })
-                .catch(e => console.log(e));
+                users.push(res.data);
+                console.log('USERS - ', users);
             })
             .catch(error => {console.log(error)});
     }
 
     changeHandler(e) {
         let arg = e.target.name;
-        console.log(typeof([arg]));
         return this.setState({[arg]: e.target.value});
     }
 
